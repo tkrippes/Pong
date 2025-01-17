@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://da6jbichdidkw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m73jq"]
+size = Vector2(64, 800)
+
+[node name="Goal" type="Area2D"]
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(32, 400)
+shape = SubResource("RectangleShape2D_m73jq")

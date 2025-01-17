@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://ce8kxqpeqvaav"]
+
+[ext_resource type="PackedScene" uid="uid://byifbcpxlrxwm" path="res://scenes/user_interface.tscn" id="1_mvsqq"]
+[ext_resource type="PackedScene" uid="uid://ckcwn6juyqo1m" path="res://scenes/ball.tscn" id="1_sg6v5"]
+[ext_resource type="Script" path="res://source/main.gd" id="1_ukofa"]
+[ext_resource type="PackedScene" uid="uid://c4848nh6ghtrx" path="res://scenes/wall.tscn" id="2_t4unw"]
+[ext_resource type="PackedScene" uid="uid://kas8cxodfmum" path="res://scenes/player.tscn" id="3_fv76q"]
+[ext_resource type="PackedScene" uid="uid://da6jbichdidkw" path="res://scenes/goal.tscn" id="5_cei5t"]
+[ext_resource type="AudioStream" uid="uid://cgictkggna504" path="res://music/game_start.mp3" id="7_a0ica"]
+[ext_resource type="AudioStream" uid="uid://b3ffy2ahy6drt" path="res://music/win_sound.mp3" id="8_7eioc"]
+[ext_resource type="Script" path="res://source/win_sound.gd" id="9_ygemy"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_ukofa")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="UserInterface" parent="." instance=ExtResource("1_mvsqq")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Player1" parent="." instance=ExtResource("3_fv76q")]
+position = Vector2(24, 352)
+
+[node name="Player2" parent="." instance=ExtResource("3_fv76q")]
+position = Vector2(1152, 352)
+player_number = 1
+
+[node name="Ball" parent="." instance=ExtResource("1_sg6v5")]
+position = Vector2(588, 388)
+
+[node name="UpperWall" parent="." instance=ExtResource("2_t4unw")]
+position = Vector2(0, -40)
+
+[node name="LowerWall" parent="." instance=ExtResource("2_t4unw")]
+position = Vector2(0, 800)
+
+[node name="Player1Goal" parent="." instance=ExtResource("5_cei5t")]
+position = Vector2(-56, 0)
+
+[node name="Player2Goal" parent="." instance=ExtResource("5_cei5t")]
+position = Vector2(1192, 0)
+
+[node name="StartSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_a0ica")
+autoplay = true
+
+[node name="WinSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_7eioc")
+script = ExtResource("9_ygemy")
+
+[connection signal="game_ended" from="." to="Player1" method="stop"]
+[connection signal="game_ended" from="." to="Player2" method="stop"]
+[connection signal="game_ended" from="." to="Ball" method="stop"]
+[connection signal="game_ended" from="." to="WinSound" method="play_delayed"]
+[connection signal="area_entered" from="Player1Goal" to="." method="_on_player_2_scored"]
+[connection signal="area_entered" from="Player2Goal" to="." method="_on_player_1_scored"]

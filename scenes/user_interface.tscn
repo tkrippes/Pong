@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://byifbcpxlrxwm"]
+
+[ext_resource type="FontFile" uid="uid://q217bwpidbcp" path="res://fonts/bit5x3.ttf" id="1_ko846"]
+[ext_resource type="Script" path="res://source/user_interface.gd" id="2_j2ysl"]
+
+[sub_resource type="Theme" id="Theme_susgo"]
+default_font = ExtResource("1_ko846")
+default_font_size = 92
+
+[node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1200.0
+offset_bottom = 800.0
+theme = SubResource("Theme_susgo")
+script = ExtResource("2_j2ysl")
+
+[node name="ScoreBoard" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -103.5
+offset_top = 12.0
+offset_right = 103.5
+offset_bottom = 100.0
+grow_horizontal = 2
+text = "0 : 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReadyLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -35.0
+offset_right = 20.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press Enter
+To Start"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WinLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -35.0
+offset_right = 20.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Player 1
+Wins"
+horizontal_alignment = 1
+vertical_alignment = 1

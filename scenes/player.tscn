@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://kas8cxodfmum"]
+
+[ext_resource type="Script" path="res://source/player.gd" id="1_1j4p8"]
+[ext_resource type="AudioStream" uid="uid://cvjyf1ow56qw8" path="res://music/wall_hit.wav" id="2_hm61r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24vjo"]
+size = Vector2(24, 96)
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_1j4p8")
+
+[node name="Color" type="ColorRect" parent="."]
+offset_right = 24.0
+offset_bottom = 96.0
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(12, 48)
+shape = SubResource("RectangleShape2D_24vjo")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_hm61r")
+pitch_scale = 0.5
