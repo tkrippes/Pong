@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://kas8cxodfmum"]
+[gd_scene load_steps=2 format=3 uid="uid://kas8cxodfmum"]
 
 [ext_resource type="Script" path="res://source/player.gd" id="1_1j4p8"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_24vjo"]
-size = Vector2(24, 96)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 6
@@ -13,6 +10,6 @@ script = ExtResource("1_1j4p8")
 offset_right = 24.0
 offset_bottom = 96.0
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="CollisionPolygon2D" parent="."]
 position = Vector2(12, 48)
-shape = SubResource("RectangleShape2D_24vjo")
+polygon = PackedVector2Array(-12, 0, -12, -11, -10, -25, -6, -38, -2, -48, 3, -48, 7, -38, 10, -25, 12, -10, 12, 0, 12, 10, 10, 22, 7, 34, 3, 48, -3, 48, -7, 34, -10, 22, -12, 10)

@@ -8,11 +8,11 @@ extends RigidBody2D
 @export var max_speed: int = 1000
 ## The speed increment of the ball whenever it bounces off a player.
 @export var speed_increment: int = 20
-## The maximum angle derivation of the ball when it starts moving.
-## The angle is chosen randomly between 0 and the maximum value.
-## Which player the ball is initially moving towards is chosen randomly.
+## The maximum angle derivation of the ball.
+## The initial angle is chosen randomly between 0 and the maximum value.
+## Which player the ball is initially moving towards is chosen randomly at the start as well.
 @export_range(0, 60, 1, "radians_as_degrees")
-var max_start_angle_derivation: float = PI / 4
+var max_angle_deviation: float = PI / 4
 
 var _velocity: Vector2
 var _initial_position: Vector2
@@ -36,6 +36,7 @@ func _physics_process(delta: float) -> void:
 				($WallHitSound as AudioStreamPlayer2D).play()
 			elif collider is Player:
 				_increase_speed()
+				_limit_velocity_angle()
 				($PlayerHitSound as AudioStreamPlayer2D).play()
 
 
@@ -46,12 +47,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func start() -> void:
 	var player_direction: int = randi_range(0, 1)
-	var angle := randf_range(-max_start_angle_derivation, max_start_angle_derivation) + PI * player_direction
+	var angle := randf_range(-max_angle_deviation, max_angle_deviation) + PI * player_direction
 	
 	show()
 	
 	_velocity = Vector2(1, 0) * initial_speed
 	_velocity = _velocity.rotated(angle)
+	_limit_velocity_angle()
 
 
 func reset() -> void:
@@ -68,6 +70,19 @@ func stop() -> void:
 func _bounce(collision: KinematicCollision2D) -> void:
 	var normal := collision.get_normal()
 	_velocity = _velocity.bounce(normal)
+
+
+func _limit_velocity_angle() -> void:
+	var angle := _velocity.angle()
+	
+	if angle > - PI + max_angle_deviation and angle < - PI / 2: 
+		_velocity = _velocity.length() * Vector2(1, 0).rotated(- PI + max_angle_deviation)
+	elif angle >= - PI / 2 and angle < - max_angle_deviation:
+		_velocity = _velocity.length() * Vector2(1, 0).rotated(- max_angle_deviation)
+	elif angle > max_angle_deviation and angle < PI / 2:
+		_velocity = _velocity.length() * Vector2(1, 0).rotated(max_angle_deviation)
+	elif angle >= PI / 2 and angle < PI - max_angle_deviation:
+		_velocity = _velocity.length() * Vector2(1, 0).rotated(PI - max_angle_deviation)
 
 
 func _increase_speed() -> void:
