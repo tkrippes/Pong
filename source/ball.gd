@@ -11,8 +11,8 @@ extends RigidBody2D
 ## The maximum angle derivation of the ball when it starts moving.
 ## The angle is chosen randomly between 0 and the maximum value.
 ## Which player the ball is initially moving towards is chosen randomly.
-@export_range(0, 60, 1, "suffix:°")
-var max_start_angle_derivation: int = 45
+@export_range(0, 60, 1, "radians_as_degrees")
+var max_start_angle_derivation: float = PI / 4
 
 var _velocity: Vector2
 var _initial_position: Vector2
