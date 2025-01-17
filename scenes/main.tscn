@@ -12,7 +12,6 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ukofa")
-win_score = 1
 
 [node name="Background" type="ColorRect" parent="."]
 anchors_preset = 15
