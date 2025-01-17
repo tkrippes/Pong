@@ -1,12 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckcwn6juyqo1m"]
+[gd_scene load_steps=5 format=3 uid="uid://ckcwn6juyqo1m"]
 
 [ext_resource type="Script" path="res://source/ball.gd" id="1_mr6bv"]
 [ext_resource type="AudioStream" uid="uid://cd0m0tdqdqvr6" path="res://music/ball_destroyed.mp3" id="2_34r0j"]
+[ext_resource type="AudioStream" uid="uid://cvjyf1ow56qw8" path="res://music/wall_hit.wav" id="2_vmovp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dvs5v"]
 size = Vector2(24, 24)
 
-[node name="Ball" type="Area2D"]
+[node name="Ball" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 5
+gravity_scale = 0.0
 script = ExtResource("1_mr6bv")
 
 [node name="Color" type="ColorRect" parent="."]
@@ -18,8 +22,13 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(12, 12)
 shape = SubResource("RectangleShape2D_dvs5v")
 
+[node name="PlayerHitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_vmovp")
+pitch_scale = 0.5
+
+[node name="WallHitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_vmovp")
+
 [node name="DestroyedSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_34r0j")
 pitch_scale = 1.5
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]

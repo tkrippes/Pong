@@ -1,5 +1,5 @@
 class_name Player
-extends Area2D
+extends CharacterBody2D
 
 enum PlayerNumber {PLAYER_ONE, PLAYER_TWO}
 
@@ -8,22 +8,16 @@ enum PlayerNumber {PLAYER_ONE, PLAYER_TWO}
 ## The player identifier.
 @export var player_number: PlayerNumber = PlayerNumber.PLAYER_ONE
 
-var _playable_area: Rect2
 var _initial_position: Vector2
 var _stop_player: bool = false
 
 
 func _ready() -> void:
-	var screen_rect := get_viewport_rect()
-	var size := ($Hitbox as CollisionShape2D).position * 2
-	_playable_area = Rect2(screen_rect.position, Vector2(screen_rect.end.x, screen_rect.end.y - size.y))
-	
 	_initial_position = position
 
 
-func _process(delta: float) -> void:
-	position += _get_velocity_from_input() * delta
-	position = position.clamp(_playable_area.position, _playable_area.end)
+func _physics_process(delta: float) -> void:
+	var _collision := move_and_collide(_get_velocity_from_input() * delta)
 
 
 func reset() -> void:
@@ -32,10 +26,6 @@ func reset() -> void:
 
 func stop() -> void:
 	_stop_player = true
-
-
-func play_hit_sound() -> void:
-	($HitSound as AudioStreamPlayer2D).play()
 
 
 func _get_velocity_from_input() -> Vector2:

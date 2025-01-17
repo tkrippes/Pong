@@ -1,5 +1,5 @@
 class_name Ball
-extends Area2D
+extends RigidBody2D
 
 
 ## The initial speed of the ball.
@@ -11,8 +11,8 @@ extends Area2D
 ## The maximum angle derivation of the ball when it starts moving.
 ## The angle is chosen randomly between 0 and the maximum value.
 ## Which player the ball is initially moving towards is chosen randomly.
-@export_range(45, 60, 1, "suffix:°")
-var max_start_angle_derivation: int
+@export_range(0, 60, 1, "suffix:°")
+var max_start_angle_derivation: int = 45
 
 var _velocity: Vector2
 var _initial_position: Vector2
@@ -24,8 +24,19 @@ func _ready() -> void:
 	_initial_position = position
 
 
-func _process(delta: float) -> void:
-	position += _velocity * delta
+func _physics_process(delta: float) -> void:
+	var collision := move_and_collide(_velocity * delta)
+	
+	if collision:
+		var collider := collision.get_collider()
+		if collider is Wall or collider is Player:
+			_bounce(collision)
+			
+			if collider is Wall:
+				($WallHitSound as AudioStreamPlayer2D).play()
+			elif collider is Player:
+				_increase_speed()
+				($PlayerHitSound as AudioStreamPlayer2D).play()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -35,12 +46,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func start() -> void:
 	var player_direction: int = randi_range(0, 1)
-	var angle := randf_range(-PI / 3, PI / 3) + PI * player_direction
+	var angle := randf_range(-max_start_angle_derivation, max_start_angle_derivation) + PI * player_direction
 	
 	show()
 	
-	var direction := Vector2(1, 0)
-	_velocity = direction.normalized() * initial_speed
+	_velocity = Vector2(1, 0) * initial_speed
 	_velocity = _velocity.rotated(angle + PI * randi_range(0, 1))
 
 
@@ -55,14 +65,9 @@ func stop() -> void:
 	_stop_ball = true
 
 
-func _on_area_entered(body: Node) -> void:
-	if (body is Wall):
-		_velocity.y *= -1
-		(body as Wall).play_hit_sound()
-	elif (body is Player):
-		_velocity.x *= -1
-		_increase_speed()
-		(body as Player).play_hit_sound()
+func _bounce(collision: KinematicCollision2D) -> void:
+	var normal := collision.get_normal()
+	_velocity = _velocity.bounce(normal)
 
 
 func _increase_speed() -> void:

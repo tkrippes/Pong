@@ -10,8 +10,8 @@ var _player_1_score: int = 0
 var _player_2_score: int = 0
 
 
-func _on_player_1_scored(area: Area2D) -> void:
-	if area is Ball:
+func _on_player_1_scored(body: Node2D) -> void:
+	if body is Ball:
 		_player_1_score += 1
 		if _player_1_score < win_score:
 			_start_new_round()
@@ -19,8 +19,8 @@ func _on_player_1_scored(area: Area2D) -> void:
 			_end_game(1)
 
 
-func _on_player_2_scored(area: Area2D) -> void:
-	if area is Ball:
+func _on_player_2_scored(body: Node2D) -> void:
+	if body is Ball:
 		_player_2_score += 1
 		if _player_2_score < win_score:
 			_start_new_round()
