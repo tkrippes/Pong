@@ -51,7 +51,7 @@ func start() -> void:
 	show()
 	
 	_velocity = Vector2(1, 0) * initial_speed
-	_velocity = _velocity.rotated(angle + PI * randi_range(0, 1))
+	_velocity = _velocity.rotated(angle)
 
 
 func reset() -> void:
