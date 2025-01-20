@@ -3,11 +3,11 @@ extends RigidBody2D
 
 
 ## The initial speed of the ball.
-@export var initial_speed: int = 250
+@export var initial_speed: int = 300
 ## The maximum speed of the ball.
 @export var max_speed: int = 1000
 ## The speed increment of the ball whenever it bounces off a player.
-@export var speed_increment: int = 25
+@export var speed_increment: int = 20
 ## The maximum angle derivation of the ball.
 ## The initial angle is chosen randomly between 0 and the maximum value.
 ## Which player the ball is initially moving towards is chosen randomly at the start as well.
@@ -45,6 +45,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func start() -> void:
+	await get_tree().create_timer(0.3).timeout
 	var player_direction: int = randi_range(0, 1)
 	var angle := randf_range(-max_angle_deviation, max_angle_deviation) + PI * player_direction
 	
@@ -73,6 +74,8 @@ func stop() -> void:
 func _bounce(collision: KinematicCollision2D) -> void:
 	var normal := collision.get_normal()
 	_velocity = _velocity.bounce(normal)
+	var angle := randf_range(- PI / 12, PI / 12)
+	_velocity = _velocity.rotated(angle)
 	_limit_velocity_angle()
 
 
