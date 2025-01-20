@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://q217bwpidbcp"
-path="res://.godot/imported/bit5x3.ttf-a8db44dd0a4de0d8f2c6cfb7f0704953.fontdata"
+uid="uid://cinhkoivy4jrq"
+path="res://.godot/imported/TeenyTinyPixls-o2zo.ttf-eb85c8c8f987e5ae6715d184226cd119.fontdata"
 
 [deps]
 
-source_file="res://fonts/bit5x3.ttf"
-dest_files=["res://.godot/imported/bit5x3.ttf-a8db44dd0a4de0d8f2c6cfb7f0704953.fontdata"]
+source_file="res://fonts/TeenyTinyPixls-o2zo.ttf"
+dest_files=["res://.godot/imported/TeenyTinyPixls-o2zo.ttf-eb85c8c8f987e5ae6715d184226cd119.fontdata"]
 
 [params]
 
