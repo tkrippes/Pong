@@ -8,6 +8,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	var ready_label := $ReadyLabel as Label
 	if event.is_action_pressed("enter") && ready_label.visible:
+		await get_tree().create_timer(0.3).timeout
 		ready_label.hide()
 
 
