@@ -36,7 +36,6 @@ func _physics_process(delta: float) -> void:
 				($WallHitSound as AudioStreamPlayer2D).play()
 			elif collider is Player:
 				_increase_speed()
-				_limit_velocity_angle()
 				($PlayerHitSound as AudioStreamPlayer2D).play()
 
 
@@ -58,8 +57,12 @@ func start() -> void:
 
 func reset() -> void:
 	hide()
+	
 	position = _initial_position
+	rotation = 0.0
+	angular_velocity = 0.0
 	_velocity = Vector2.ZERO
+	
 	($DestroyedSound as AudioStreamPlayer2D).play()
 
 
@@ -70,6 +73,7 @@ func stop() -> void:
 func _bounce(collision: KinematicCollision2D) -> void:
 	var normal := collision.get_normal()
 	_velocity = _velocity.bounce(normal)
+	_limit_velocity_angle()
 
 
 func _limit_velocity_angle() -> void:
