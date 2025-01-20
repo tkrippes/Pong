@@ -7,7 +7,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	var ready_label := $ReadyLabel as Label
-	if event.is_action_pressed("ui_accept") && ready_label.visible:
+	if event.is_action_pressed("enter") && ready_label.visible:
 		ready_label.hide()
 
 

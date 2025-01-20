@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept") and not visible and not _stop_ball:
+	if event.is_action_pressed("enter") and not visible and not _stop_ball:
 		start()
 
 
