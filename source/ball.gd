@@ -7,7 +7,7 @@ extends RigidBody2D
 ## The maximum speed of the ball.
 @export var max_speed: int = 1000
 ## The speed increment of the ball whenever it bounces off a player.
-@export var speed_increment: int = 20
+@export var speed_increment: int = 25
 ## The maximum angle derivation of the ball.
 ## The initial angle is chosen randomly between 0 and the maximum value.
 ## Which player the ball is initially moving towards is chosen randomly at the start as well.

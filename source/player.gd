@@ -4,7 +4,7 @@ extends CharacterBody2D
 enum PlayerNumber {PLAYER_ONE, PLAYER_TWO}
 
 ## The speed of the player.
-@export var speed: int = 250
+@export var speed: int = 300
 ## The player identifier.
 @export var player_number: PlayerNumber = PlayerNumber.PLAYER_ONE
 
