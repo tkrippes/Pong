@@ -46,7 +46,7 @@ func _get_velocity_from_player_input(move_up_action_name: String,
 	var _velocity := Vector2.ZERO
 	if Input.is_action_pressed(move_up_action_name):
 		_velocity.y -= 1
-	elif Input.is_action_pressed(move_down_action_name):
+	if Input.is_action_pressed(move_down_action_name):
 		_velocity.y += 1
 	_velocity = _velocity.normalized() * speed
 	
