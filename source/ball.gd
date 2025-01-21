@@ -42,17 +42,11 @@ func _physics_process(delta: float) -> void:
 				($PlayerHitSound as AudioStreamPlayer2D).play()
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("enter") and not visible and not _stop_ball:
-		start()
-
-
 func start() -> void:
-	await get_tree().create_timer(0.3).timeout
+	show()
+	
 	var player_direction: int = randi_range(0, 1)
 	var angle := randf_range(-max_angle_deviation, max_angle_deviation) + PI * player_direction
-	
-	show()
 	
 	_velocity = Vector2(1, 0) * initial_speed
 	_velocity = _velocity.rotated(angle)
@@ -71,8 +65,7 @@ func reset() -> void:
 
 
 func _bounce(collision: KinematicCollision2D) -> void:
-	var normal := collision.get_normal()
-	_velocity = _velocity.bounce(normal)
+	_velocity = _velocity.bounce(collision.get_normal())
 	
 	_add_random_velocity_angle_deviation()
 	_limit_velocity_angle()

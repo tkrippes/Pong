@@ -54,15 +54,24 @@ position = Vector2(1192, 0)
 
 [node name="StartSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_a0ica")
-autoplay = true
 
 [node name="WinSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_7eioc")
 script = ExtResource("9_ygemy")
 
-[connection signal="game_ended" from="." to="Player1" method="stop"]
-[connection signal="game_ended" from="." to="Player2" method="stop"]
-[connection signal="game_ended" from="." to="Ball" method="stop"]
+[connection signal="game_ended" from="." to="Player1" method="reset"]
+[connection signal="game_ended" from="." to="Player2" method="reset"]
+[connection signal="game_ended" from="." to="Ball" method="reset"]
 [connection signal="game_ended" from="." to="WinSound" method="play_delayed"]
+[connection signal="game_started" from="." to="UserInterface" method="show_ready_screen"]
+[connection signal="game_started" from="." to="StartSound" method="play"]
+[connection signal="player_won" from="." to="UserInterface" method="show_win_screen"]
+[connection signal="round_ended" from="." to="UserInterface" method="show_ready_screen"]
+[connection signal="round_ended" from="." to="Player1" method="reset"]
+[connection signal="round_ended" from="." to="Player2" method="reset"]
+[connection signal="round_ended" from="." to="Ball" method="reset"]
+[connection signal="round_started" from="." to="UserInterface" method="hide_screens"]
+[connection signal="round_started" from="." to="Ball" method="start"]
+[connection signal="scores_updated" from="." to="UserInterface" method="update_score_board"]
 [connection signal="body_entered" from="Player1Goal" to="." method="_on_player_2_scored"]
 [connection signal="body_entered" from="Player2Goal" to="." method="_on_player_1_scored"]
