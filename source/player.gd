@@ -9,7 +9,6 @@ enum PlayerNumber {PLAYER_ONE, PLAYER_TWO}
 @export var player_number: PlayerNumber = PlayerNumber.PLAYER_ONE
 
 var _initial_position: Vector2
-var _stop_player: bool = false
 
 
 func _ready() -> void:
@@ -24,14 +23,7 @@ func reset() -> void:
 	position = _initial_position
 
 
-func stop() -> void:
-	_stop_player = true
-
-
 func _get_velocity_from_input() -> Vector2:
-	if _stop_player:
-		return Vector2.ZERO
-		
 	match player_number:
 		PlayerNumber.PLAYER_ONE:
 			return _get_velocity_from_player_input("move_player_1_up", "move_player_1_down")

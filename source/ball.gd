@@ -20,7 +20,6 @@ var max_random_bounce_angle_deviation: float = PI / 12
 
 var _velocity: Vector2
 var _initial_position: Vector2
-var _stop_ball: bool = false
 
 
 func _ready() -> void:
@@ -69,10 +68,6 @@ func reset() -> void:
 	_velocity = Vector2.ZERO
 	
 	($DestroyedSound as AudioStreamPlayer2D).play()
-
-
-func stop() -> void:
-	_stop_ball = true
 
 
 func _bounce(collision: KinematicCollision2D) -> void:
