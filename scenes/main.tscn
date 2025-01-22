@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ce8kxqpeqvaav"]
+[gd_scene load_steps=12 format=3 uid="uid://ce8kxqpeqvaav"]
 
 [ext_resource type="PackedScene" uid="uid://byifbcpxlrxwm" path="res://scenes/user_interface.tscn" id="1_mvsqq"]
 [ext_resource type="PackedScene" uid="uid://ckcwn6juyqo1m" path="res://scenes/ball.tscn" id="1_sg6v5"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://c4848nh6ghtrx" path="res://scenes/wall.tscn" id="2_t4unw"]
 [ext_resource type="PackedScene" uid="uid://kas8cxodfmum" path="res://scenes/player.tscn" id="3_fv76q"]
 [ext_resource type="PackedScene" uid="uid://da6jbichdidkw" path="res://scenes/goal.tscn" id="5_cei5t"]
+[ext_resource type="AudioStream" uid="uid://yhl4ikasf22r" path="res://music/background_music.mp3" id="7_3m7gi"]
 [ext_resource type="AudioStream" uid="uid://cgictkggna504" path="res://music/game_start.mp3" id="7_a0ica"]
 [ext_resource type="AudioStream" uid="uid://b3ffy2ahy6drt" path="res://music/win_sound.mp3" id="8_7eioc"]
+[ext_resource type="Script" path="res://source/background_music.gd" id="9_bb5v3"]
 [ext_resource type="Script" path="res://source/win_sound.gd" id="9_ygemy"]
 
 [node name="Main" type="Node"]
@@ -60,6 +62,12 @@ grow_vertical = 2
 [node name="StartSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_a0ica")
 
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_3m7gi")
+volume_db = -10.0
+parameters/looping = true
+script = ExtResource("9_bb5v3")
+
 [node name="WinSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_7eioc")
 script = ExtResource("9_ygemy")
@@ -68,8 +76,10 @@ script = ExtResource("9_ygemy")
 [connection signal="game_ended" from="." to="World/Player2" method="reset"]
 [connection signal="game_ended" from="." to="World/Ball" method="reset"]
 [connection signal="game_ended" from="." to="WinSound" method="play_delayed"]
+[connection signal="game_ended" from="." to="BackgroundMusic" method="stop"]
 [connection signal="game_started" from="." to="UserInterface" method="show_ready_screen"]
 [connection signal="game_started" from="." to="StartSound" method="play"]
+[connection signal="game_started" from="." to="BackgroundMusic" method="play_delayed"]
 [connection signal="player_won" from="." to="UserInterface" method="show_win_screen"]
 [connection signal="round_ended" from="." to="World/Player1" method="reset"]
 [connection signal="round_ended" from="." to="World/Player2" method="reset"]
