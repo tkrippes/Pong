@@ -13,13 +13,40 @@
 [node name="Main" type="Node"]
 script = ExtResource("1_ukofa")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="World" type="Node2D" parent="."]
+
+[node name="Background" type="ColorRect" parent="World"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1200.0
+offset_bottom = 800.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="Player1" parent="World" instance=ExtResource("3_fv76q")]
+position = Vector2(24, 352)
+
+[node name="Player2" parent="World" instance=ExtResource("3_fv76q")]
+position = Vector2(1176, 448)
+rotation = 3.14159
+player_number = 1
+
+[node name="Ball" parent="World" instance=ExtResource("1_sg6v5")]
+position = Vector2(588, 388)
+
+[node name="UpperWall" parent="World" instance=ExtResource("2_t4unw")]
+position = Vector2(0, -40)
+
+[node name="LowerWall" parent="World" instance=ExtResource("2_t4unw")]
+position = Vector2(0, 800)
+
+[node name="Player1Goal" parent="World" instance=ExtResource("5_cei5t")]
+position = Vector2(-56, 0)
+
+[node name="Player2Goal" parent="World" instance=ExtResource("5_cei5t")]
+position = Vector2(1192, 0)
 
 [node name="UserInterface" parent="." instance=ExtResource("1_mvsqq")]
 anchors_preset = 15
@@ -30,29 +57,6 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Player1" parent="." instance=ExtResource("3_fv76q")]
-position = Vector2(24, 352)
-
-[node name="Player2" parent="." instance=ExtResource("3_fv76q")]
-position = Vector2(1176, 448)
-rotation = 3.14159
-player_number = 1
-
-[node name="Ball" parent="." instance=ExtResource("1_sg6v5")]
-position = Vector2(588, 388)
-
-[node name="UpperWall" parent="." instance=ExtResource("2_t4unw")]
-position = Vector2(0, -40)
-
-[node name="LowerWall" parent="." instance=ExtResource("2_t4unw")]
-position = Vector2(0, 800)
-
-[node name="Player1Goal" parent="." instance=ExtResource("5_cei5t")]
-position = Vector2(-56, 0)
-
-[node name="Player2Goal" parent="." instance=ExtResource("5_cei5t")]
-position = Vector2(1192, 0)
-
 [node name="StartSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_a0ica")
 
@@ -60,19 +64,19 @@ stream = ExtResource("7_a0ica")
 stream = ExtResource("8_7eioc")
 script = ExtResource("9_ygemy")
 
-[connection signal="game_ended" from="." to="Player1" method="reset"]
-[connection signal="game_ended" from="." to="Player2" method="reset"]
-[connection signal="game_ended" from="." to="Ball" method="reset"]
+[connection signal="game_ended" from="." to="World/Player1" method="reset"]
+[connection signal="game_ended" from="." to="World/Player2" method="reset"]
+[connection signal="game_ended" from="." to="World/Ball" method="reset"]
 [connection signal="game_ended" from="." to="WinSound" method="play_delayed"]
 [connection signal="game_started" from="." to="UserInterface" method="show_ready_screen"]
 [connection signal="game_started" from="." to="StartSound" method="play"]
 [connection signal="player_won" from="." to="UserInterface" method="show_win_screen"]
+[connection signal="round_ended" from="." to="World/Player1" method="reset"]
+[connection signal="round_ended" from="." to="World/Player2" method="reset"]
+[connection signal="round_ended" from="." to="World/Ball" method="reset"]
 [connection signal="round_ended" from="." to="UserInterface" method="show_ready_screen"]
-[connection signal="round_ended" from="." to="Player1" method="reset"]
-[connection signal="round_ended" from="." to="Player2" method="reset"]
-[connection signal="round_ended" from="." to="Ball" method="reset"]
+[connection signal="round_started" from="." to="World/Ball" method="start"]
 [connection signal="round_started" from="." to="UserInterface" method="hide_screens"]
-[connection signal="round_started" from="." to="Ball" method="start"]
 [connection signal="scores_updated" from="." to="UserInterface" method="update_score_board"]
-[connection signal="body_entered" from="Player1Goal" to="." method="_on_player_2_scored"]
-[connection signal="body_entered" from="Player2Goal" to="." method="_on_player_1_scored"]
+[connection signal="body_entered" from="World/Player1Goal" to="." method="_on_player_2_scored"]
+[connection signal="body_entered" from="World/Player2Goal" to="." method="_on_player_1_scored"]
