@@ -24,6 +24,8 @@ signal player_won(winning_player_number: int)
 @export var win_score: int = 9
 ## The delay between pressing enter and a new round starting.
 @export var start_round_delay: float = 0.25
+## The delay between the old game ending and the new game starting.
+@export var start_new_game_delay: float = 3.0
 
 
 var _game_state: GameState = GameState.GAME_STARTED
@@ -40,8 +42,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		match _game_state:
 			GameState.GAME_STARTED, GameState.ROUND_ENDED:
 				_start_new_round()
-			GameState.GAME_ENDED:
-				_start_game()
 
 
 func _on_player_1_scored(body: Node2D) -> void:
@@ -91,3 +91,6 @@ func _end_game(winning_player_number: int) -> void:
 	player_won.emit(winning_player_number)
 	_game_state = GameState.GAME_ENDED
 	game_ended.emit()
+	
+	await get_tree().create_timer(start_new_game_delay).timeout
+	_start_game()
