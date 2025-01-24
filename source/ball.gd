@@ -16,7 +16,7 @@ var max_angle_deviation: float = PI / 4
 ## The maximum random angle deviation of the ball during bouncing.
 ## During each bounce, a random deviation between - the maximum value and the maximum value is applied.
 @export_range(0, 30, 1, "radians_as_degrees")
-var max_random_bounce_angle_deviation: float = PI / 12
+var max_random_bounce_angle_deviation: float = 0.0 # PI / 12
 
 var _velocity: Vector2
 var _initial_position: Vector2
