@@ -34,6 +34,7 @@ var _player_2_score: int = 0
 
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	_start_game()
 
 
