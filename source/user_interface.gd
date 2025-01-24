@@ -18,6 +18,6 @@ func show_ready_screen() -> void:
 
 func show_win_screen(winning_player_number: int) -> void:
 	var win_label := $WinLabel as Label
-	win_label.text = "Player %d\nWins" % winning_player_number
+	win_label.text = "PLAYER %d\nWINS" % winning_player_number
 	win_label.show()
 	($ReadyLabel as Label).hide()

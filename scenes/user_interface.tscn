@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://byifbcpxlrxwm"]
 
-[ext_resource type="FontFile" uid="uid://cinhkoivy4jrq" path="res://fonts/TeenyTinyPixls-o2zo.ttf" id="1_e3s61"]
+[ext_resource type="FontFile" uid="uid://c5wgukhdttnbx" path="res://fonts/AtlantisInternational-jen0.ttf" id="1_mdkyx"]
 [ext_resource type="Script" path="res://source/user_interface.gd" id="2_j2ysl"]
 
 [sub_resource type="Theme" id="Theme_susgo"]
-default_font = ExtResource("1_e3s61")
-default_font_size = 64
+default_font = ExtResource("1_mdkyx")
+default_font_size = 128
 
 [node name="UserInterface" type="Control"]
 layout_mode = 3
@@ -42,8 +42,8 @@ offset_right = 20.0
 offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Press Enter
-To Start"
+text = "PRESS ENTER
+TO START"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -61,7 +61,7 @@ offset_right = 20.0
 offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Player 1
-Wins"
+text = "PLAYER 1
+WINS"
 horizontal_alignment = 1
 vertical_alignment = 1
